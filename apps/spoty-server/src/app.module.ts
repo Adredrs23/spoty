@@ -4,8 +4,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { SongsModule } from './songs/songs.module';
-
 import { PrismaModule } from './prisma/prisma.module';
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
   imports: [
@@ -19,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
       },
     }),
     SongsModule,
+    ArtistsModule,
     PrismaModule,
   ],
 })

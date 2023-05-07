@@ -16,11 +16,11 @@ model Song {
   // artists ArtistsSongs[]
 }
 
-// model Artist {
-//   id    Int            @id @default(autoincrement())
-//   name  String
-//   songs ArtistsSongs[]
-// }
+model Artist {
+  id   String @id @default(uuid())
+  name String
+  // songs ArtistsSongs[]
+}
 
 // model ArtistsSongs {
 //   song     Song   @relation(fields: [songId], references: [id])
