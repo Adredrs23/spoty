@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Album" ALTER COLUMN "name" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Artist" ALTER COLUMN "name" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Song" ALTER COLUMN "name" SET DATA TYPE TEXT;

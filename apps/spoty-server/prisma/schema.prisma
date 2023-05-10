@@ -11,22 +11,39 @@ datasource db {
 }
 
 model Song {
-  id   String @id @default(uuid())
-  name String
-  // artists ArtistsSongs[]
+  id         String         @id @default(uuid())
+  name       String         @unique
+  artists    ArtistsSongs[]
+  album      Album?         @relation(fields: [albumId], references: [id])
+  albumId    String?        @unique
+  duration   Int            @default(0) //time in seconds
+  producedBy String[]       @default([])
+  writtenBy  String[]       @default([])
+  isSingle   Boolean        @default(true)
+  uploadedOn DateTime       @default(now())
+  uploadedBy String
+  updatedAt  DateTime       @updatedAt
+  ownedBy    String
+  isPrivate  Boolean        @default(false)
+}
+
+model Album {
+  id    String @id @default(uuid())
+  name  String @unique
+  songs Song[]
 }
 
 model Artist {
-  id   String @id @default(uuid())
-  name String
-  // songs ArtistsSongs[]
+  id    String         @id @default(uuid())
+  name  String         @unique
+  songs ArtistsSongs[]
 }
 
-// model ArtistsSongs {
-//   song     Song   @relation(fields: [songId], references: [id])
-//   songId   Int // relation scalar field (used in the `@relation` attribute above)
-//   artist   Artist @relation(fields: [artistId], references: [id])
-//   artistId Int // relation scalar field (used in the `@relation` attribute above)
+model ArtistsSongs {
+  song     Song   @relation(fields: [songId], references: [id])
+  songId   String // relation scalar field (used in the `@relation` attribute above)
+  artist   Artist @relation(fields: [artistId], references: [id])
+  artistId String // relation scalar field (used in the `@relation` attribute above)
 
-//   @@id([songId, artistId])
-// }
+  @@id([songId, artistId])
+}

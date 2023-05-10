@@ -1,0 +1,13 @@
+scalar JSON
+scalar Date
+
+type Album {
+  id: String!
+  name: String!
+  songs: [Song]
+}
+
+input CreateAlbumInput {
+  name: String!
+  songs: [CreateSongInput]
+}

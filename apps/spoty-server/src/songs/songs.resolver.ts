@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
-import { SongsService } from './songs.service';
-
 import { CreateSongInput, UpdateSongInput } from 'src/types/graphql';
+
+import { SongsService } from './songs.service';
 
 @Resolver('Song')
 export class SongsResolver {

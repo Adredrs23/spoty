@@ -2,6 +2,7 @@ import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { GraphQLJSON, GraphQLDateTime } from 'graphql-scalars';
 
 import { SongsModule } from './songs/songs.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -17,6 +18,7 @@ import { ArtistsModule } from './artists/artists.module';
         path: join(process.cwd(), 'src/types/graphql.ts'),
         outputAs: 'class',
       },
+      resolvers: { JSON: GraphQLJSON, Date: GraphQLDateTime },
     }),
     SongsModule,
     ArtistsModule,

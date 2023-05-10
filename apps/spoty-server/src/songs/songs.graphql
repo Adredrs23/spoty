@@ -1,5 +1,20 @@
+#NODD - Optional Defaulted by Database Or NUll
+
 type Song {
-  name: String
+  id: String!
+  name: String!
+  duration: Int!
+  isSingle: Boolean!
+  uploadedOn: Date!
+  uploadedBy: String!
+  updatedAt: Date!
+  ownedBy: String!
+  isPrivate: Boolean!
+
+  producedBy: [String!] #NODD
+  writtenBy: [String!] #NODD
+  album: Album #NODD
+  albumId: String #NODD
 }
 
 type Query {
@@ -7,17 +22,41 @@ type Query {
   song(id: String!): Song
 }
 
-input CreateSongInput {
-  name: String!
-}
-
-input UpdateSongInput {
-  id: String!
-  name: String!
-}
-
 type Mutation {
   createSong(createSongInput: CreateSongInput!): Song!
   updateSong(updateSongInput: UpdateSongInput!): Song!
   removeSong(id: String!): Song
+}
+
+input CreateSongCreateNestedAlbumInput {
+  name: String!
+}
+
+input CreateSongInput {
+  name: String!
+  uploadedBy: String!
+  ownedBy: String!
+
+  isPrivate: Boolean #NODD
+  isSingle: Boolean #NODD , Is there a way to make sure when isSingle is false, then album and albumId exisits???
+  duration: Int #NODD
+  producedBy: [String!] #NODD
+  writtenBy: [String!] #NODD
+  album: CreateSongCreateNestedAlbumInput #NODD This has to be Input type which cannot loop back to its parent props, in this case Songs as Songs can nested-ly create Album which cannot create its own parent Song again. Hence, the CreateSongCreateNestedAlbumInput
+  # albumId: String #NODD Don't need this while creating. Can be used while linking a Song to an existing Album
+}
+
+input UpdateSongInput {
+  id: String!
+
+  name: String
+  duration: Int
+  producedBy: [String!]
+  writtenBy: [String!]
+  isSingle: Boolean
+  album: CreateSongCreateNestedAlbumInput
+  uploadedOn: Date
+  uploadedBy: String
+  ownedBy: String
+  isPrivate: Boolean
 }

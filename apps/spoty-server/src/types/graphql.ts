@@ -17,13 +17,39 @@ export class UpdateArtistInput {
     name: string;
 }
 
+export class CreateSongCreateNestedAlbumInput {
+    name: string;
+}
+
 export class CreateSongInput {
     name: string;
+    uploadedBy: string;
+    ownedBy: string;
+    isPrivate?: Nullable<boolean>;
+    isSingle?: Nullable<boolean>;
+    duration?: Nullable<number>;
+    producedBy?: Nullable<string[]>;
+    writtenBy?: Nullable<string[]>;
+    album?: Nullable<CreateSongCreateNestedAlbumInput>;
 }
 
 export class UpdateSongInput {
     id: string;
+    name?: Nullable<string>;
+    duration?: Nullable<number>;
+    producedBy?: Nullable<string[]>;
+    writtenBy?: Nullable<string[]>;
+    isSingle?: Nullable<boolean>;
+    album?: Nullable<CreateSongCreateNestedAlbumInput>;
+    uploadedOn?: Nullable<DateTime>;
+    uploadedBy?: Nullable<string>;
+    ownedBy?: Nullable<string>;
+    isPrivate?: Nullable<boolean>;
+}
+
+export class CreateAlbumInput {
     name: string;
+    songs?: Nullable<Nullable<CreateSongInput>[]>;
 }
 
 export class Artist {
@@ -55,7 +81,27 @@ export abstract class IMutation {
 }
 
 export class Song {
-    name?: Nullable<string>;
+    id: string;
+    name: string;
+    duration: number;
+    isSingle: boolean;
+    uploadedOn: DateTime;
+    uploadedBy: string;
+    updatedAt: DateTime;
+    ownedBy: string;
+    isPrivate: boolean;
+    producedBy?: Nullable<string[]>;
+    writtenBy?: Nullable<string[]>;
+    album?: Nullable<Album>;
+    albumId?: Nullable<string>;
 }
 
+export class Album {
+    id: string;
+    name: string;
+    songs?: Nullable<Nullable<Song>[]>;
+}
+
+export type JSON = any;
+export type DateTime = any;
 type Nullable<T> = T | null;
