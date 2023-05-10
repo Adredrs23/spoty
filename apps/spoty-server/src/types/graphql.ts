@@ -64,6 +64,10 @@ export abstract class IQuery {
     abstract songs(): Nullable<Song>[] | Promise<Nullable<Song>[]>;
 
     abstract song(id: string): Nullable<Song> | Promise<Nullable<Song>>;
+
+    abstract downloadFile(): Nullable<string> | Promise<Nullable<string>>;
+
+    abstract uploadFile(): Nullable<string> | Promise<Nullable<string>>;
 }
 
 export abstract class IMutation {

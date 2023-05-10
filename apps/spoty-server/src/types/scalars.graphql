@@ -11,3 +11,8 @@ input CreateAlbumInput {
   name: String!
   songs: [CreateSongInput]
 }
+
+type Query {
+  downloadFile: String
+  uploadFile: String
+}

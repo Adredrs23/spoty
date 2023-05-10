@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { storage } from 'firebase-admin';
+import { join } from 'path';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateSongInput, UpdateSongInput } from 'src/types/graphql';
@@ -6,6 +8,42 @@ import { CreateSongInput, UpdateSongInput } from 'src/types/graphql';
 @Injectable()
 export class SongsService {
   constructor(private prisma: PrismaService) {}
+
+  downloadFile() {
+    const bucketName = 'spoty-b14a6.appspot.com';
+    const destFileName = join(process.cwd(), 'public/files/downloaded.png');
+
+    const fileName = 'vite-react-thumbnail.png';
+    const options = {
+      destination: destFileName,
+    };
+
+    // Downloads the file
+    storage().bucket(bucketName).file(fileName).download(options);
+
+    const res = `gs://${bucketName}/${fileName} downloaded to ${destFileName}.`;
+    console.log(res);
+
+    return res;
+  }
+
+  uploadFile() {
+    const bucketName = 'spoty-b14a6.appspot.com';
+    const filePath = join(process.cwd(), 'public/files/uploadable.jpg');
+
+    const destFileName = 'uploaded.jpg';
+    const options = {
+      destination: destFileName,
+    };
+
+    storage().bucket(bucketName).upload(filePath, options);
+    // Downloads the file
+
+    const res = `gs://${bucketName}/${filePath} uploaded to ${destFileName}.`;
+    console.log(res);
+
+    return res;
+  }
 
   findAll() {
     return this.prisma.song.findMany({

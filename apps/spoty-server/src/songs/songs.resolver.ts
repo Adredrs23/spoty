@@ -18,6 +18,16 @@ export class SongsResolver {
     return this.songsService.findOne(id);
   }
 
+  @Query('downloadFile')
+  downloadFile() {
+    return this.songsService.downloadFile();
+  }
+
+  @Query('uploadFile')
+  uploadFile() {
+    return this.songsService.uploadFile();
+  }
+
   @Mutation('createSong')
   create(@Args('createSongInput') createSongInput: CreateSongInput) {
     return this.songsService.create(createSongInput);
